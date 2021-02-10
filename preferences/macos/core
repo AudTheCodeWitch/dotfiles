@@ -4,7 +4,7 @@ set -e
 # Set lock screen message
 sudo defaults write /Library/Preferences/com.apple.loginwindow \
   LoginwindowText \
-  "Found this computer? Please contact John Britton at public@johndbritton.com."
+  "Found this computer? Please contact Audrea Cook at aud@codewitch.dev."
 
 # Check for software updates daily
 defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
