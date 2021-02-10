@@ -12,7 +12,7 @@
 [user]
 	email = aud@codewitch.dev
 	name = Audrea Cook
-	signingkey = #########
+	signingkey = E1CFBB6C69E2E5A2
 [color]
 	ui = true
 [credential]
