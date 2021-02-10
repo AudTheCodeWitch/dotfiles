@@ -1,6 +1,6 @@
 [core]
 	autocrlf = input
-	editor = atom -w
+	editor = rubymine -w
 	excludesfile = ~/.gitignore
 [alias]
 	branch-name = rev-parse --abbrev-ref HEAD
@@ -10,15 +10,15 @@
 [push]
 	default = simple
 [user]
-	email = public@johndbritton.com
-	name = John Britton
-	signingkey = E915C4F25FD858BB
+	email = aud@codewitch.dev
+	name = Audrea Cook
+	signingkey = #########
 [color]
 	ui = true
 [credential]
 	helper = osxkeychain
 [github]
-	user = johndbritton
+	user = audcook
 [commit]
 	gpgsign = true
 [pull]
