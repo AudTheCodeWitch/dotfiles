@@ -18,7 +18,7 @@
 [credential]
 	helper = osxkeychain
 [github]
-	user = audcook
+	user = audthecodewitch
 [commit]
 	gpgsign = true
 [pull]
