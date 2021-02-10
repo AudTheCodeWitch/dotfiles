@@ -1,1 +1,1 @@
-export VISUAL="atom"
+export VISUAL="rubymine"
