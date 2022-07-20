@@ -1,0 +1,19 @@
+#
+# Executes commands at the start of an interactive session.
+#
+# Customize to your needs...
+
+# Load zsh customizations
+for f in ~/.zsh/*; do source $f; done
+
+# Add ~/bin to PATH
+export PATH="$HOME/bin:$PATH"
+export GPG_TTY=$(tty)
+
+# Add go to PATH (for CPR)
+export GOPATH=$HOME/go
+export PATH=$GOPATH/bin:$PATH
+
+# Add autojump
+[ -f $(brew --prefix)/etc/profile.d/autojump.sh ] && . $(brew --prefix)/etc/profile.d/autojump.sh
+Footer

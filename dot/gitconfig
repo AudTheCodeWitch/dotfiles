@@ -1,0 +1,29 @@
+[core]
+	autocrlf = input
+	editor = code --wait
+	excludesfile = ~/.gitignore
+[alias]
+	branch-name = rev-parse --abbrev-ref HEAD
+	pub = !git push -u origin $(git branch-name)
+	password = !reset-github-password
+	redo = commit --amend --no-edit
+[push]
+	default = simple
+[user]
+	email = audrea@codewitch.dev
+	name = Audrea Cook
+	signingkey = E1CFBB6C69E2E5A2
+[color]
+	ui = true
+[credential]
+	helper = osxkeychain
+[github]
+	user = AudTheCodeWitch
+[commit]
+	gpgsign = true
+[pull]
+	rebase = false
+[init]
+	defaultBranch = main
+[gpg]
+	program = gpg
