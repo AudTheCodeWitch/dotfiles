@@ -10,9 +10,9 @@
 [push]
 	default = simple
 [user]
-	email = audrea@codewitch.dev
+	email = audrea.cook@teachable.com
 	name = Audrea Cook
-	signingkey = E1CFBB6C69E2E5A2
+	signingkey = 36C1C17A8B06C568
 [color]
 	ui = true
 [credential]

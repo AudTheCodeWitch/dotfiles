@@ -9,21 +9,3 @@ for f in ~/.zsh/*; do source $f; done
 # Add ~/bin to PATH
 export PATH="$HOME/bin:$PATH"
 export GPG_TTY=$(tty)
-
-# Add go to PATH (for CPR)
-export GOPATH=$HOME/go
-export PATH=$GOPATH/bin:$PATH
-
-# Add autojump
-[ -f $(brew --prefix)/etc/profile.d/autojump.sh ] && . $(brew --prefix)/etc/profile.d/autojump.sh
-Footer
-
-export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
-export PUPPETEER_EXECUTABLE_PATH=`which chromium`
-
-export NVM_DIR="$HOME/.nvm"
-  [ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
