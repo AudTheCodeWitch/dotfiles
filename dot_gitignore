@@ -1,0 +1,51 @@
+# ==========================================
+# Helix Editor
+# ==========================================
+### Helix ###
+.helix/
+
+# ==========================================
+# JetBrains (RubyMine / IntelliJ / WebStorm)
+# ==========================================
+### JetBrains ###
+.idea/
+*.iml
+*.iws
+*.ipr
+.idea_modules/
+
+# ==========================================
+# macOS System Files
+# ==========================================
+### macOS ###
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.DocumentRevisions-V100
+.Spotlight-V100
+.Trashes
+.VolumeIcon.icns
+.apdisk
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+
+# iCloud generated files
+*.icloud
+
+# ==========================================
+# Local Secrets & Universal Guardrails
+# ==========================================
+.env
+.env.local
+.env.*.local
+.secrets
+*.local
+*.diff
+*.patch
+*.dump
+*.sql
