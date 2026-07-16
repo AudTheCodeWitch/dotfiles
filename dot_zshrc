@@ -130,8 +130,8 @@ export PATH="$HOME/.local/bin:$PATH"
 # else
 #   export EDITOR='nvim'
 # fi
-export EDITOR='mine -e --wait'
-export VISUAL='mine -e --wait'
+export EDITOR='hx'
+export VISUAL='hx'
 
 # Compilation flags
 # export ARCHFLAGS="-arch $(uname -m)"
