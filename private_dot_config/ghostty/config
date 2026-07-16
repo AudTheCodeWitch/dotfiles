@@ -10,8 +10,8 @@ notify-on-command-finish = unfocused
 shell-integration-features = sudo
 
 # Typography (Assumes JetBrains Mono is installed on your Mac)
-font-family = "JetBrains Mono"
-font-size = 16
+font-family = "FiraCode Nerd Font"
+font-size = 15
 
 # Visual Styling
 theme = Lovelace
