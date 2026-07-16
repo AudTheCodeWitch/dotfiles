@@ -1,0 +1,150 @@
+#!/bin/bash
+
+# Only run this script on macOS machines
+{{ if eq .chezmoi.os "darwin" -}}
+
+echo "🔧 Configuring macOS system preferences..."
+
+# Close any open System Preferences panes to prevent them from overriding
+# settings we are about to change
+osascript -e 'tell application "System Preferences" to quit'
+
+###############################################################################
+# Core & System Preferences                                                   #
+###############################################################################
+
+# Set lock screen message (will prompt for your password)
+sudo defaults write /Library/Preferences/com.apple.loginwindow \
+  LoginwindowText \
+  "Found this computer? Please contact Audrea Cook at audrea@codewitch.dev."
+
+# Enable Touch ID for sudo commands (survives macOS updates)
+if [ -f /etc/pam.d/sudo_local.template ] && [ ! -f /etc/pam.d/sudo_local ]; then
+    echo "🔒 Enabling Touch ID for sudo..."
+    sudo cp /etc/pam.d/sudo_local.template /etc/pam.d/sudo_local
+    sudo sed -i '' 's/#auth       sufficient     pam_tid.so/auth       sufficient     pam_tid.so/' /etc/pam.d/sudo_local
+fi
+
+# Check for software updates daily
+defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
+
+# Disable shadow in screenshots
+defaults write com.apple.screencapture disable-shadow -bool true
+
+# Save to disk (not to iCloud) by default
+defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
+
+# Expand save panel by default
+defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
+defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
+
+# Use scroll gesture with the Ctrl (^) modifier key to zoom
+sudo defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
+sudo defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
+
+# Follow the keyboard focus while zoomed in
+sudo defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
+
+# Speed up window resizing and opening animations
+defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
+
+# Automatically quit printer app once the print job completes
+defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
+
+###############################################################################
+# Keyboard & Trackpad Preferences                                             #
+###############################################################################
+
+# Set a blazingly fast keyboard repeat rate (crucial for Helix/Vim motion)
+defaults write NSGlobalDomain KeyRepeat -int 1
+defaults write NSGlobalDomain InitialKeyRepeat -int 10
+
+# Disable smart quotes, smart dashes, and auto-correct globally
+defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+
+# Enable full keyboard access for all controls (e.g., enable Tab in modal dialogs)
+defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
+
+# Enable trackpad "Tap to Click" for the current user and login screen
+defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+
+###############################################################################
+# Dock Preferences                                                            #
+###############################################################################
+
+# Wipe all (default) app icons from the Dock (only runs if script changes)
+defaults write com.apple.dock persistent-apps -array
+
+# Remove all stacks from the Dock
+defaults write com.apple.dock persistent-others -array
+
+# Automatically hide and show the Dock
+defaults write com.apple.dock autohide -bool true
+
+###############################################################################
+# Finder Preferences                                                          #
+###############################################################################
+
+# Finder: show path bar & status bar
+defaults write com.apple.finder ShowPathbar -bool true
+defaults write com.apple.finder ShowStatusBar -bool true
+
+# When performing a search, search the current folder by default
+defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+
+# Keep folders on top when sorting by name
+defaults write com.apple.finder _FXSortFoldersFirst -bool true
+
+# Show all filename extensions
+defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+
+# Show hidden files by default
+defaults write com.apple.finder AppleShowAllFiles -bool true
+
+# Show the ~/Library folder
+chflags nohidden ~/Library
+
+# Avoid creating .DS_Store files on network or USB volumes
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+
+# Disable the warning when changing a file extension
+defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+
+# Show icons for hard drives, servers, and removable media on the desktop
+defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
+defaults write com.apple.finder ShowHardDrivesOnDesktop -bool false
+defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
+defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
+
+# Enable snap-to-grid for icons on the desktop and in other icon views
+/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist || true
+/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist || true
+/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist || true
+
+###############################################################################
+# Safari Developer Settings                                                   #
+###############################################################################
+
+# Enable Safari Developer Menu and Web Inspector
+defaults write com.apple.Safari IncludeDevelopMenu -bool true
+defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
+
+###############################################################################
+# Apply Changes                                                               #
+###############################################################################
+
+# Restart affected apps to apply changes immediately
+for app in "Dock" "Finder" "Safari"; do
+    killall "$app" &> /dev/null
+done
+
+echo "✅ All macOS preferences successfully applied!"
+
+{{ end -}}
