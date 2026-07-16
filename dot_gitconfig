@@ -1,0 +1,30 @@
+[user]
+	name = Audrea Cook
+	email = audrea@codewitch.dev
+	username = audTheCodeWitch
+    signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJGiIGzz6c/mvGiqsg08e8v3xtegUvStn5FRVfLJRF+q
+[branch]
+    sort = -committerdate
+[column]
+    ui = auto
+[commit]
+    gpgsign = true
+[core]
+	editor = mine -e --wait
+	pager = "diff-so-fancy | less --tabs=4 -RF"
+[gpg]
+    format = ssh
+[gpg "ssh"]
+    program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+[interactive]
+    diffFilter = "diff-so-fancy --patch"
+[maintenance]
+    auto = true
+    strategy = incremental
+[pull]
+    rebase = true
+[push]
+    autoSetupRemote = true
+[tag]
+    sort = -version:refname
+
