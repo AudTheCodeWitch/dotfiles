@@ -45,3 +45,6 @@ if command -v fzf >/dev/null; then
         export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git/*"'
     fi
 fi
+
+# Force Homebrew Bundle to always use your modular Chezmoi-managed Brewfile
+export HOMEBREW_BUNDLE_FILE="$HOME/.config/homebrew/Brewfile"
