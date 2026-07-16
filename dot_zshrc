@@ -115,7 +115,11 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-# export MANPATH="/usr/local/man:$MANPATH"
+# 1. Initialize Homebrew (this prepends /opt/homebrew/bin to your PATH)
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# 2. Add local custom binaries (this prepends your personal bins so they take absolute priority)
+export PATH="$HOME/.local/bin:$PATH"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -143,5 +147,3 @@ export VISUAL='mine -e --wait'
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-export PATH="$PATH:$HOME/.local/bin"
