@@ -1,31 +1,93 @@
+# ==============================================================================
+# USER DETAILS & CRYPTOGRAPHIC SIGNING
+# ==============================================================================
 [user]
 	name = Audrea Cook
 	email = audrea@codewitch.dev
 	username = audTheCodeWitch
-    signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJGiIGzz6c/mvGiqsg08e8v3xtegUvStn5FRVfLJRF+q
-[branch]
-    sort = -committerdate
-[column]
-    ui = auto
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJGiIGzz6c/mvGiqsg08e8v3xtegUvStn5FRVfLJRF+q
+
 [commit]
-    gpgsign = true
-[core]
-	editor = mine -e --wait
-	pager = "diff-so-fancy | less --tabs=4 -RF"
-    excludesfile = ~/.gitignore
+	gpgsign = true                        # Automatically sign all commits using your SSH key
+
 [gpg]
-    format = ssh
+	format = ssh                          # Tells Git to use SSH keys for signing instead of GPG
+
 [gpg "ssh"]
-    program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+	program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign" # 1Password signing agent
+
+# ==============================================================================
+# CORE & PAGER CONFIG (Integrating Git-Delta)
+# ==============================================================================
+[core]
+	editor = mine -e --wait               # Launches RubyMine for commit messages and blocks terminal
+	pager = delta                         # Uses git-delta for gorgeous, modern diffs and logs
+	excludesfile = ~/.gitignore           # Path to your global git ignore rules
+
 [interactive]
-    diffFilter = "diff-so-fancy --patch"
-[maintenance]
-    auto = true
-    strategy = incremental
-[pull]
-    rebase = true
-[push]
-    autoSetupRemote = true
+	diffFilter = delta --color-only       # Uses Delta formatting for interactive staging (git add -p)
+
+[delta]
+	features = line-numbers decorations
+	navigate = true                       # Use 'n' and 'N' to jump between files in a diff
+	light = false                         # Set to true if you ever switch to a light terminal theme
+	side-by-side = true                   # Enable beautiful split-screen side-by-side diffs
+	syntax-theme = OneHalfDark            # Clean, modern syntax theme matching Ghostty/Helix
+
+[merge]
+	conflictstyle = zdiff3                # Shows the base code version in merge conflicts (highly recommended)
+
+# ==============================================================================
+# BRANCH, TAG, & DISPLAY SETTINGS
+# ==============================================================================
+[branch]
+	sort = -committerdate                 # Sort branches by most recently committed (puts active work at the top!)
+
 [tag]
-    sort = -version:refname
+	sort = -version:refname               # Sort version tags numerically (e.g. v1.10.0 comes after v1.2.0)
+
+[column]
+	ui = auto                             # Shows lists (like branch lists) in clean columns if they fit
+
+# ==============================================================================
+# PERFORMANCE & BACKGROUND MAINTENANCE
+# ==============================================================================
+[maintenance]
+	auto = true                           # Optimizes git repositories automatically in the background
+	strategy = incremental                # Uses incremental maintenance to keep fetch and commit graph indexing fast
+
+# ==============================================================================
+# ELITE ALIASES
+# ==============================================================================
+[alias]
+	# Fast Shortcuts
+	st = status -sb                       # Highly condensed, clean status view
+	co = checkout
+	br = branch
+	ci = commit
+	aa = add --all
+
+	# Modern Visual Log Tree
+lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+
+	# Quick Fixes
+	oops = commit --amend --no-edit       # Instantly add staged changes to your previous commit
+	unstage = reset HEAD --               # Quickly unstage a file
+	last = log -1 HEAD --patch            # View absolute details of your very last commit
+
+# ==============================================================================
+# SAFE, MODERN DEFAULTS
+# ==============================================================================
+[init]
+	defaultBranch = main                  # Sets 'main' as the default branch name for new projects
+
+[pull]
+	rebase = true                         # Keeps Git history clean and linear when pulling upstream changes
+
+[push]
+	default = simple
+	autoSetupRemote = true                # Automatically creates the upstream branch on your first push!
+
+[color]
+	ui = true                             # Ensures colorful UI elements are active globally
 
