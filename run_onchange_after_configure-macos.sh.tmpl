@@ -141,7 +141,7 @@ defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebK
 ###############################################################################
 
 # Restart affected apps to apply changes immediately
-for app in "Dock" "Finder" "Safari"; do
+for app in "Dock" "Finder" "Safari" "Bartender"; do
     killall "$app" &> /dev/null
 done
 
