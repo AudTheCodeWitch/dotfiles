@@ -65,6 +65,7 @@ cask "1password-cli"  # Command-line interface for 1Password
 
 # Communication
 cask "discord"        # Gaming & community chat
+cask "signal"         # Encrypted messaging client
 cask "slack"          # Communication client
 
 # Terminal & Dev Tools

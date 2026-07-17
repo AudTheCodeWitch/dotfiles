@@ -13,6 +13,7 @@ alias be="bundle exec"                  # Context-safe command executor
 alias rc="bundle exec rails console"    # Launch interactive Rails console
 alias dbm="bundle exec rails db:migrate" # Run pending database migrations
 alias dev="overmind start"              # Spin up modern bin/dev tasks cleanly
+alias guard="bundle exec guard"         # Ruby Guard
 
 # Container Management
 alias lzd="lazydocker"                  # Terminal visual UI for Docker/Rancher
