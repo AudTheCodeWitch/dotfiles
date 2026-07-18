@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+# .tool-versions fingerprint: {{ include "dot_tool-versions" | sha256sum }}
+
+# Exit immediately if a command exits with a non-zero status, treat unset variables as an error
+set -eu
+
+echo "🔄 Runtime change detected in .tool-versions. Configuring asdf..."
+
+# Native performance path evaluation (bypasses slow 'brew --prefix' subshell)
+ASDF_HOME_PATH="$HOME/.asdf/asdf.sh"
+ASDF_BREW_PATH="/opt/homebrew/opt/asdf/libexec/asdf.sh"
+
+if [ -f "$ASDF_HOME_PATH" ]; then
+    . "$ASDF_HOME_PATH"
+elif [ -f "$ASDF_BREW_PATH" ]; then
+    . "$ASDF_BREW_PATH"
+fi
+
+# Ensure asdf execution context is fully established
+if command -v asdf >/dev/null 2>&1; then
+    echo "⚡ Syncing runtimes via asdf..."
+    asdf install
+
+    # Safe evaluation of Node environment without tripping 'set -e'
+    if asdf current nodejs >/dev/null 2>&1; then
+        echo "📦 Activating Node Corepack (Yarn/PNPM)..."
+        corepack enable yarn pnpm
+        asdf reshim nodejs
+    fi
+else
+    echo "⚠️ asdf binary not found in shell environment. Skipping execution."
+    exit 0
+fi
