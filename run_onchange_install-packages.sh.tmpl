@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Brewfile fingerprint: {{ include "dot_config/homebrew/Brewfile" | sha256sum }}
+
+echo "🔄 Brewfile change detected. Synchronizing system packages..."
+brew bundle --file=~/.config/homebrew/Brewfile --cleanup --force
