@@ -15,6 +15,7 @@
 
 [gpg "ssh"]
 	program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign" # 1Password signing agent
+	allowedSignersFile = ~/.config/git/allowed_signers                 # Local signature verification
 
 # ==============================================================================
 # CORE & PAGER CONFIG (Integrating Git-Delta)
