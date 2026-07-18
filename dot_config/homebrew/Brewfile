@@ -13,6 +13,7 @@ brew "git"            # Distributed version control system
 brew "git-delta"      # Syntax-highlighting pager for git
 brew "jq"             # Command-line JSON processor
 brew "lazygit"        # Simple terminal UI for git commands
+brew "libyaml"        # YAML parser and emitter
 brew "ripgrep"        # Fast search tool (like grep)
 brew "thefuck"        # Programmatically correct mistyped commands
 brew "tldr"           # Simplified and community-driven man pages

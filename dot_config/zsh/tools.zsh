@@ -30,6 +30,11 @@ if command -v zoxide >/dev/null; then
     eval "$(zoxide init zsh)"
 fi
 
+# ASDF Version Manager (Must load before direnv)
+if [[ -f "/opt/homebrew/opt/asdf/libexec/asdf.sh" ]]; then
+    source "/opt/homebrew/opt/asdf/libexec/asdf.sh"
+fi
+
 # Direnv (Loads/unloads directory-specific env files automatically)
 if command -v direnv >/dev/null; then
     eval "$(direnv hook zsh)"

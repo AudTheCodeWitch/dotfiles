@@ -1,0 +1,5 @@
+# Honor community standard version files (.ruby-version, .node-version, etc.)
+legacy_version_file = yes
+
+# Automatically look for newer plugin versions on update
+plugin_repository_last_check_duration = 60
