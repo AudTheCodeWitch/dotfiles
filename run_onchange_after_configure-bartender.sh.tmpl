@@ -1,0 +1,46 @@
+#!/bin/zsh
+
+# ==============================================================================
+# AUTOMATED APP PREFERENCES: Bartender
+# Process: Idempotent script executed only when this file is updated.
+# Security: Zero-Secret (License injected at convergence via 1Password CLI)
+# Isolation: Separation of concerns to prevent false configuration drift.
+# ==============================================================================
+
+echo "⚙️  Configuring Bartender license and core layout options..."
+
+# 1. Dynamic Secret Injection via 1Password CLI
+BARTENDER_LICENSE="{{ onepasswordRead "op://Private/Bartender/license key" }}"
+
+defaults write com.surteesstudios.Bartender license6 "$BARTENDER_LICENSE"
+defaults write com.surteesstudios.Bartender license6HoldersName "Audrea Cook"
+
+# 2. UI & Behavior Settings
+defaults write com.surteesstudios.Bartender SimpleLayoutModeEnabled -bool true
+defaults write com.surteesstudios.Bartender HideShownItemsWhen -int 2
+defaults write com.surteesstudios.Bartender "launchAtLogin.isEnabled" -bool true
+
+# 3. Declarative Profile Layout Matrix
+# Sets your deterministic item sorting without tracking dynamic binary states.
+defaults write com.surteesstudios.Bartender ProfileSettings -dict activeProfile '{
+    AlwaysHide = (
+        "com.runningwithcrayons.Alfred-Item-0",
+        "com.knollsoft.Rectangle-Item-0"
+    );
+    Hide = (
+        "com.1password.1password-bb3cc23c-6950-4e96-8b40-850e09f46934",
+        "com.jetbrains.toolbox-Item-0",
+        "com.apple.controlcenter-WiFi"
+    );
+    Show = (
+        "com.apple.Spotlight-Item-0",
+        "com.surteesstudios.Bartender-statusItem",
+        "com.apple.controlcenter-Battery"
+    );
+}'
+
+# 4. Zero-Downtime Hot Reload
+if pgrep -x "Bartender" > /dev/null; then
+    echo "🔄 Restarting Bartender to apply changes..."
+    killall "Bartender" && sleep 1 && open -a "Bartender"
+fi
