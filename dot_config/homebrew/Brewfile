@@ -26,7 +26,7 @@ brew "gnupg"          # GNU Privacy Guard
 brew "pinentry-mac"   # Native macOS dialog for GPG passphrases
 
 # Universal Version Manager (Replaces rbenv, pyenv, nvm)
-brew "asdf"
+brew "mise"
 
 # Modern Rails Development Tools
 brew "direnv"         # Environment variable manager (used by Rails bin/dev)
