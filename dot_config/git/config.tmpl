@@ -1,22 +1,90 @@
+# Managed by chezmoi
+
+# ==============================================================================
+# USER DETAILS & CRYPTOGRAPHIC SIGNING
+# ==============================================================================
 [user]
-    name = Audrea Cook
-    email = audrea@codewitch.dev
-    signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJGiIGzz6c/mvGiqsg08e8v3xtegUvStn5FRVfLJRF+q
-
-[gpg]
-    format = ssh
-
-[gpg "ssh"]
-    program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
-    allowedSignersFile = "{{ .chezmoi.homeDir }}/.config/git/allowed_signers"
+  name = Audrea Cook
+  email = audrea@codewitch.dev
+  username = audTheCodeWitch
+  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJGiIGzz6c/mvGiqsg08e8v3xtegUvStn5FRVfLJRF+q
 
 [commit]
-    gpgsign = true
+  gpgsign = true
 
+[gpg]
+  format = ssh
+
+[gpg "ssh"]
+  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+  allowedSignersFile = "{{ .chezmoi.homeDir }}/.config/git/allowed_signers"
+
+# ==============================================================================
+# CORE & PAGER CONFIG (Integrating Git-Delta)
+# ==============================================================================
 [core]
-    pager = "bat"
-    editor = "hx"
-    excludesfile = "{{ .chezmoi.homeDir }}/.config/git/ignore"
+  editor = mine -e --wait
+  pager = delta
+  excludesfile = "{{ .chezmoi.homeDir }}/.gitignore"
 
+[interactive]
+  diffFilter = delta --color-only
+
+[delta]
+  features = line-numbers decorations
+  navigate = true
+  light = false
+  side-by-side = true
+  syntax-theme = OneHalfDark
+
+[merge]
+  conflictstyle = zdiff3
+
+# ==============================================================================
+# BRANCH, TAG, & DISPLAY SETTINGS
+# ==============================================================================
+[branch]
+  sort = -committerdate
+
+[tag]
+  sort = -version:refname
+
+[column]
+  ui = auto
+
+# ==============================================================================
+# PERFORMANCE & BACKGROUND MAINTENANCE
+# ==============================================================================
+[maintenance]
+  auto = true
+  strategy = incremental
+
+# ==============================================================================
+# ELITE ALIASES
+# ==============================================================================
+[alias]
+  st = status -sb
+  co = checkout
+  br = branch
+  ci = commit
+  aa = add --all
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  oops = commit --amend --no-edit
+  unstage = reset HEAD --
+  last = log -1 HEAD --patch
+
+# ==============================================================================
+# SAFE, MODERN DEFAULTS
+# ==============================================================================
 [init]
-    defaultBranch = main
+  defaultBranch = main
+
+[pull]
+  rebase = true
+
+[push]
+  default = simple
+  autoSetupRemote = true
+
+[color]
+  ui = true
