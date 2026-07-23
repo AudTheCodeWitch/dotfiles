@@ -1,0 +1,14 @@
+# ==============================================================================
+# LEAN JAVASCRIPT RUNTIMES CONFIGURATION (~/.yarnrc.yml)
+# ==============================================================================
+
+# Silences metrics and prevents background network pings to remote servers
+enableTelemetry: false
+
+# Uses a single central cache on your Mac instead of duplicates per project
+enableGlobalCache: true
+
+# Silences legacy/unactionable package peer-dependency warnings during install
+logFilters:
+  - code: YN0060
+    level: discard

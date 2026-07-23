@@ -1,36 +1,40 @@
+# Managed by chezmoi
+
 # ==============================================================================
 # 🎨 THEME CONFIGURATION
 # ==============================================================================
-theme = "rose_pine_moon"                      # Clean, modern theme matching your delta/ghostty setups
+theme = "rose_pine_moon"
 
 # ==============================================================================
 # ⚙️ EDITOR SETTINGS
 # ==============================================================================
 [editor]
-line-number = "relative"                # Relative line numbers (makes jumping lines with '5j' easy)
-scrolloff = 5                           # Keep 5 lines visible above/below cursor when scrolling
-mouse = true                            # Enable full mouse support (clicking, scrolling, selecting)
-color-modes = true                      # Show distinct color block for the current mode in status bar
+line-number = "relative"
+scrolloff = 5
+mouse = true
+color-modes = true
+bufferline = "multiple"
+auto-format = true
 
-# Cursor styling per mode (Block in Normal, thin Bar in Insert, Underline in Select)
 [editor.cursor-shape]
 normal = "block"
 insert = "bar"
 select = "underline"
 
-# Visual file-navigation and guides
 [editor.file-picker]
-hidden = false                          # Allow search/open of hidden files (like your .gitignore or .zshrc)
+hidden = false
 
 [editor.indent-guides]
-render = true                           # Shows vertical indent lines (crucial for Ruby/YAML indentation!)
+render = true
 character = "╎"
 
-# Auto-pairing of brackets, quotes, etc.
-[editor.lsp]
-display-messages = true                 # Shows LSP (Language Server) status messages at the bottom
+[editor.soft-wrap]
+enable = true
 
-# Status bar customizations
+[editor.lsp]
+display-messages = true
+display-inlay-hints = true
+
 [editor.statusline]
 left = ["mode", "spinner", "file-name", "read-only-indicator", "file-modification-indicator"]
 right = ["diagnostics", "selections", "position", "file-encoding", "file-type"]

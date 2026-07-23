@@ -2,7 +2,7 @@
 
 Setting up a new machine sucks. I hate it, so I've taken the time to set up these
 dotfiles, which are managed via [chezmoi](https://www.chezmoi.io/). Future me:
-you're welcome.
+you're welcome. Keep this up to date, or you'll regret it!
 
 ---
 
@@ -10,11 +10,12 @@ you're welcome.
 
 | Category | Tools | Description |
 | :--- | :--- | :--- |
-| **Shell** | `Zsh` + `Oh My Zsh` | The backbone shell, clean and error-free. |
+| **Shell** | `Zsh` + `Oh My Zsh` | The backbone shell, clean and modularized. |
+| **Runtimes** | `mise` | Fast, shimless polyglot version manager (Ruby, Node). |
 | **Terminal** | `Ghostty` | Fast, GPU-accelerated, modern terminal emulator. |
-| **Editor** | `Helix` (`hx`) | Modern modal editor with built-in LSP support. |
+| **Editor** | `Helix` (`hx`) | Modern modal editor with built-in LSP support (`$EDITOR`). |
 | **Git Engine** | `git-delta` | Modern, syntax-highlighted side-by-side diffs. |
-| **Security** | `1Password` | Cryptographic Git commit signing via SSH keys. |
+| **Security** | `1Password` | Cryptographic Git commit signing & SSH agent integration. |
 
 ---
 
@@ -26,16 +27,16 @@ The repository is modularly structured to enforce clean separation of concerns:
 .local/share/chezmoi/
 ├── private_dot_config/
 │   ├── ghostty/
-│   │   └── config            # Terminal layout & shortcuts
+│   │   └── config            # Terminal layout, theme, & shortcuts
 │   ├── helix/
-│   │   └── config.toml       # Relative lines, mouse support, One Dark theme
+│   │   └── config.toml       # Line numbers, LSP, mouse support
 │   ├── homebrew/
-│   │   └── Brewfile          # Universal package list (apps, CLI, casks)
+│   │   └── Brewfile          # Universal package manifest (apps, CLI, casks)
 │   └── zsh/
-│       ├── aliases.zsh       # Pure Git, Rails, and system typing shortcuts
-│       └── tools.zsh         # Rust replacement engines & tool hook-ups
+│       ├── aliases.zsh       # Shorthand Git, Rails, & system shortcuts
+│       └── tools.zsh         # Modern Rust tools & runtime hooks (mise, zoxide)
 ├── dot_gitconfig             # Git settings, 1Password signing, Delta config
-├── dot_gitignore             # Global project ignore file
+├── dot_gitignore             # Global project ignore rules
 └── dot_zshrc                 # System environment, pathing, & plugin loader
 ```
 
@@ -45,32 +46,38 @@ The repository is modularly structured to enforce clean separation of concerns:
 
 To replicate this exact environment on a brand-new Mac:
 
-### Step 1: Install Chezmoi and initialize the dotfiles
+### Step 1: Run the One-Liner Engine
 ```zsh
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply <your-github-username>
+sh -c "$(curl -fsLS [https://get.chezmoi.io](https://get.chezmoi.io))" -- init --apply audthecodewitch
 ```
+> **What this does:** Installs Homebrew, fetches CLI packages via `Brewfile`, sets up `mise`, clones custom Zsh plugins, and links all dotfiles.
 
-### Step 2: Run the Homebrew bundle to install all applications
-```zsh
-brew bundle --global
-```
+### Step 2: Authenticate 1Password
+Open 1Password from `Applications`, sign into your account, and enable:
+* **Settings → Developer → Use 1Password SSH Agent**
+* **Settings → Developer → Integrate with 1Password CLI**
 
-### Step 3: Install Oh My Zsh
-```zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-```
-
-### Step 4: Install Custom Zsh Plugins (isolated in ~/.config/zsh)
-```zsh
-mkdir -p ~/.config/zsh/plugins
-git clone https://github.com/zsh-users/zsh-autosuggestions ~/.config/zsh/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.config/zsh/plugins/zsh-syntax-highlighting
-git clone https://github.com/fdellwing/zsh-bat.git ~/.config/zsh/plugins/zsh-bat
-```
-
-### Step 5: Sync everything live
+### Step 3: Sync & Reload Shell
 ```zsh
 chezmoi apply && exec zsh
+```
+
+---
+
+## 🏎️ Everyday Dotfile Workflow
+
+### Editing Configurations
+* **Edit file:** `chezmoi edit <path-in-home>` (e.g., `chezmoi edit ~/.zshrc`)
+* **Inspect drift:** `chezmoi diff`
+* **Apply live:** `chezmoi apply`
+* **Check status:** `chezmoi status`
+
+### Syncing to Remote Repository
+```zsh
+cd $(chezmoi source-path)
+git add .
+git commit -m "feat: update system configurations"
+git push origin main
 ```
 
 ---
@@ -78,20 +85,19 @@ chezmoi apply && exec zsh
 ## 🏎️ Elite Shortcuts Cheat Sheet
 
 ### Modern CLI Upgrades
-* `ll` - Displays beautiful, directory listings with Git status integration via `eza`.
-* `cat [file]` - Syntax-highlights files in the terminal via `bat`.
-* `df` - Beautiful visual disk usage mapping via `duf`.
-* `z [dir]` - Teleports instantly to any frequently visited folder via `zoxide`'s learning engine.
-* `Ctrl + R` - Triggers a visual, fuzzy-searchable interface for shell history via `fzf`.
+* `ls` / `ll` - Displays directory listings with Git status integration via `eza`.
+* `cat [file]` - Syntax-highlights files in terminal via `bat`.
+* `df` - Visual disk usage statistics via `duf`.
+* `z [dir]` - Teleports to frequently visited folders via `zoxide`.
+* `Ctrl + R` - Triggers a visual fuzzy-search interface for history via `fzf`.
 
 ### Development Gateway
-* `g` - The universal gateway to your advanced `.gitconfig` aliases.
+* `g` - Universal gateway to custom `.gitconfig` aliases.
 	* `g st` - Highly condensed, clean Git status.
-	* `g lg` - Stunning colorful graphical commit tree.
-	* `g oops` - Instantly amends staged edits to your last commit without changing the message.
+	* `g lg` - Graphical commit tree.
+	* `g oops` - Amends staged edits into last commit without prompt.
 * `be` - `bundle exec`
 * `rc` - `bundle exec rails console`
 * `dbm` - `bundle exec rails db:migrate`
-* `dev` - boots up process-management via `overmind`.
-* `lzd` - launches a visual terminal manager for docker containers via `lazydocker`.
-```
+* `dev` - Spins up modern `bin/dev` or Overmind tasks cleanly.
+* `lzd` - Launches visual terminal manager for Docker via `lazydocker`.

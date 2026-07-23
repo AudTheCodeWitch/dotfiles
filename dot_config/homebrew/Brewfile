@@ -13,6 +13,7 @@ brew "git"            # Distributed version control system
 brew "git-delta"      # Syntax-highlighting pager for git
 brew "jq"             # Command-line JSON processor
 brew "lazygit"        # Simple terminal UI for git commands
+brew "libyaml"        # YAML parser and emitter
 brew "ripgrep"        # Fast search tool (like grep)
 brew "thefuck"        # Programmatically correct mistyped commands
 brew "tldr"           # Simplified and community-driven man pages
@@ -25,7 +26,7 @@ brew "gnupg"          # GNU Privacy Guard
 brew "pinentry-mac"   # Native macOS dialog for GPG passphrases
 
 # Universal Version Manager (Replaces rbenv, pyenv, nvm)
-brew "asdf"
+brew "mise"
 
 # Modern Rails Development Tools
 brew "direnv"         # Environment variable manager (used by Rails bin/dev)
@@ -54,7 +55,7 @@ brew "neovim"         # Highly extensible Vim fork
 
 # Utilities & Window Management
 cask "alfred"         # Application launcher and productivity search
-cask "bartender"      # Menu bar organizer
+cask "jordanbaird-ice"      # Menu bar organizer
 cask "itsycal"        # Menu bar calendar
 cask "kap"            # Screen recording and GIF creation
 cask "rectangle"      # Window resizing shortcuts

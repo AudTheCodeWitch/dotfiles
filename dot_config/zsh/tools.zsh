@@ -30,6 +30,11 @@ if command -v zoxide >/dev/null; then
     eval "$(zoxide init zsh)"
 fi
 
+# Mise Polyglot Engine (replaces rbenv, pyenv, etc with fast, shimless PATH activation)
+if command -v mise >/dev/null; then
+    eval "$(mise activate zsh)"
+fi
+
 # Direnv (Loads/unloads directory-specific env files automatically)
 if command -v direnv >/dev/null; then
     eval "$(direnv hook zsh)"

@@ -1,0 +1,19 @@
+# Editor Configuration (Helix as primary diff & merge tool)
+[edit]
+    command = "hx"
+
+[diff]
+    command = "hx"
+    args = ["--diff"]
+    pager = "bat --paging=never"
+
+[merge]
+    command = "hx"
+
+# Global Pager Configuration
+pager = "bat"
+
+# External Secret Manager / Custom Data Variables
+[data]
+    secret_manager_cli = "op"  # Generic placeholder (e.g., 1Password 'op', 'bw', or custom script)
+    secret_vault = "Personal"
