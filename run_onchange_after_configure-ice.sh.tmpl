@@ -1,0 +1,24 @@
+#!/bin/zsh
+
+# ==============================================================================
+# AUTOMATED APP PREFERENCES: Ice Menu Bar Manager
+# Process: Idempotent script executed only when this file is updated.
+# Security: Zero-Secret
+# ==============================================================================
+
+{{ if eq .chezmoi.os "darwin" -}}
+
+echo "⚙️  Configuring Ice menu bar options..."
+
+# 1. Ensure Ice binary is running or open it
+if ! pgrep -x "Ice" > /dev/null; then
+    open -a "Ice" 2>/dev/null || true
+fi
+
+# 2. Core Behavior Settings via defaults write
+defaults write com.jordanbaird.Ice ShowOnHover -bool true
+defaults write com.jordanbaird.Ice AutoRehide -bool true
+
+echo "✅ Ice configuration applied!"
+
+{{ end -}}
