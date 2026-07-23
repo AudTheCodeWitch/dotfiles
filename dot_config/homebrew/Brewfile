@@ -55,7 +55,7 @@ brew "neovim"         # Highly extensible Vim fork
 
 # Utilities & Window Management
 cask "alfred"         # Application launcher and productivity search
-cask "bartender"      # Menu bar organizer
+cask "jordanbaird-ice"      # Menu bar organizer
 cask "itsycal"        # Menu bar calendar
 cask "kap"            # Screen recording and GIF creation
 cask "rectangle"      # Window resizing shortcuts
