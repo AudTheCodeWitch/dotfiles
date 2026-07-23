@@ -48,8 +48,7 @@ To replicate this exact environment on a brand-new Mac:
 
 ### Step 1: Run the One-Liner Engine
 ```zsh
-sh -c "$(curl -fsLS [https://get.chezmoi.io](https://get.chezmoi.io))" -- init --apply audthecodewitch
-```
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply AudTheCodeWitch``
 > **What this does:** Installs Homebrew, fetches CLI packages via `Brewfile`, sets up `mise`, clones custom Zsh plugins, and links all dotfiles.
 
 ### Step 2: Authenticate 1Password
@@ -59,7 +58,7 @@ Open 1Password from `Applications`, sign into your account, and enable:
 
 ### Step 3: Sync & Reload Shell
 ```zsh
-chezmoi apply && exec zsh
+chezmoi apply && omz reload
 ```
 
 ---
