@@ -44,9 +44,9 @@ defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 # Keyboard & Trackpad Preferences                                             #
 ###############################################################################
 
-# Set a blazingly fast keyboard repeat rate
-defaults write NSGlobalDomain KeyRepeat -int 1
-defaults write NSGlobalDomain InitialKeyRepeat -int 10
+# Set a quicker keyboard repeat rate
+defaults write NSGlobalDomain KeyRepeat -int 2
+defaults write NSGlobalDomain InitialKeyRepeat -int 15
 
 # Disable press-and-hold for keys in favor of key repeat (Essential for Helix motion)
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
