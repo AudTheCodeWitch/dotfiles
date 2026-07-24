@@ -92,3 +92,7 @@ cask "qlstephen"          # Preview extensionless text files (e.g. Gemfiles)
 cask "font-fira-code-nerd-font"
 cask "font-hack-nerd-font"
 cask "font-jetbrains-mono-nerd-font"
+
+# Home office setup
+cask "displaylink" # Manage multiple external monitors
+cask "keymapp"     # Key mapper for ZSA keyboard
