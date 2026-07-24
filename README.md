@@ -48,8 +48,15 @@ To replicate this exact environment on a brand-new Mac:
 
 ### Step 1: Run the One-Liner Engine
 ```zsh
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply AudTheCodeWitch``
-> **What this does:** Installs Homebrew, fetches CLI packages via `Brewfile`, sets up `mise`, clones custom Zsh plugins, and links all dotfiles.
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply AudTheCodeWitch
+```
+
+This will:
+- Install Homebrew
+- Fetch CLI packages via `Brewfile`
+- Set up `mise` for Ruby & Node version management
+- Clone custom Zsh plugins
+- Link all dotfiles to your home directory
 
 ### Step 2: Authenticate 1Password
 Open 1Password from `Applications`, sign into your account, and enable:
@@ -81,7 +88,7 @@ git push origin main
 
 ---
 
-## 🏎️ Elite Shortcuts Cheat Sheet
+## 🏎️ Alias Cheat Sheet
 
 ### Modern CLI Upgrades
 * `ls` / `ll` - Displays directory listings with Git status integration via `eza`.
