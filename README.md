@@ -65,7 +65,7 @@ Open 1Password from `Applications`, sign into your account, and enable:
 
 ### Step 3: Sync & Reload Shell
 ```zsh
-chezmoi apply && exec zsh
+eval "$(/opt/homebrew/bin/brew shellenv)" && chezmoi apply && exec zsh
 ```
 
 ---
