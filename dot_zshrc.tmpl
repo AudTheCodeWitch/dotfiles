@@ -87,3 +87,29 @@ export ZSH_AUTOSUGGEST_USE_ASYNC=1
 if command -v mise &> /dev/null; then
     eval "$(mise activate zsh)"
 fi
+
+# direnv
+eval "$(direnv hook zsh)"
+
+{{- if and (hasKey . "dev") .dev }}
+# Zulu JDK 17 (dev profile)
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
+{{- end }}
+
+{{- if and (hasKey . "prizepicks") .prizepicks }}
+# prizepicks-devenv: run commands in the matching container
+alias p="$HOME/Code/7Factor/PrizePicks/prizepicks-devenv/scripts/run_in_container"
+alias dve="$HOME/Code/7Factor/PrizePicks/prizepicks-devenv/scripts/run_in_container"
+
+# prizepicks-devenv: once a day, offer to sync the repos (scripts/sync_repos)
+_devenv_sync_prompt() {
+  local dir="$HOME/Code/7Factor/PrizePicks/prizepicks-devenv"
+  local stamp="$HOME/.cache/devenv-sync-prompted" today=$(date +%F)
+  [[ -o interactive && -t 0 && -x "$dir/scripts/sync_repos" ]] || return
+  [[ "$(cat "$stamp" 2>/dev/null)" == "$today" ]] && return
+  [[ "$(stat -f %Sm -t %F "$dir/.sync_state" 2>/dev/null)" == "$today" ]] && return
+  mkdir -p "${stamp:h}" && echo "$today" > "$stamp"
+  read -q "REPLY?Devenv repos not synced today. Sync now? [y/N] " && { echo; "$dir/scripts/sync_repos"; } || echo
+}
+_devenv_sync_prompt
+{{- end }}

@@ -1,4 +1,9 @@
 # ==============================================================================
+# BASE PROFILE (applied on every machine/user)
+# Layered profiles live in Brewfile.dev and Brewfile.prizepicks.
+# ==============================================================================
+
+# ==============================================================================
 # BREW FORMULAE (CLI Tools & Utilities)
 # ==============================================================================
 
@@ -34,17 +39,6 @@ brew "overmind"       # Elite process manager for bin/dev (pry-debugging friendl
 brew "tmux"           # Terminal multiplexer (required for Overmind)
 brew "vips"           # Fast image processing library (used by Rails ActiveStorage)
 
-# Kubernetes Dev Tools
-brew "helm"           # Kubernetes package manager
-brew "kubectl"        # Kubernetes command-line tool
-brew "k9s"            # Terminal UI for managing Kubernetes clusters
-brew "lazydocker"     # Terminal UI for managing Docker containers
-
-# Development Environments & Databases
-brew "postgresql@17"  # Relational database (essential for Rails)
-brew "redis"          # In-memory key-value store
-brew "awscli"         # Amazon Web Services command-line interface
-
 # Text Editors
 brew "helix"          # Modern modal text editor
 brew "neovim"         # Highly extensible Vim fork
@@ -62,7 +56,6 @@ cask "rectangle"      # Window resizing shortcuts
 
 # Security
 cask "1password"      # Password manager
-cask "1password-cli"  # Command-line interface for 1Password
 
 # Communication
 cask "discord"        # Gaming & community chat
@@ -70,11 +63,8 @@ cask "signal"         # Encrypted messaging client
 cask "slack"          # Communication client
 
 # Terminal & Dev Tools
-cask "bruno"              # Open source IDE for exploring and testing APIs
 cask "ghostty"            # Modern native GPU-accelerated terminal
 cask "jetbrains-toolbox"  # Manager for RubyMine/JetBrains IDEs
-cask "ngrok"              # Secure tunnels to localhost
-cask "rancher"            # Kubernetes management GUI
 
 # Browsers
 cask "google-chrome"

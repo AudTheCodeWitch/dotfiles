@@ -17,3 +17,10 @@ pager = "bat"
 [data]
     secret_manager_cli = "op"  # Generic placeholder (e.g., 1Password 'op', 'bw', or custom script)
     secret_vault = "Personal"
+
+# Machine profile, asked once per machine/user at `chezmoi init`.
+# Profiles are layered: base < dev < prizepicks (each includes the ones before it).
+{{- $profile := promptChoiceOnce . "profile" "Machine profile" (list "base" "dev" "prizepicks") "base" }}
+    profile = {{ $profile | quote }}
+    dev = {{ or (eq $profile "dev") (eq $profile "prizepicks") }}
+    prizepicks = {{ eq $profile "prizepicks" }}

@@ -1,7 +1,20 @@
 #!/bin/bash
 
 # Brewfile fingerprint: {{ include "dot_config/homebrew/Brewfile" | sha256sum }}
+{{- if and (hasKey . "dev") .dev }}
+# Brewfile.dev fingerprint: {{ include "dot_config/homebrew/Brewfile.dev" | sha256sum }}
+{{- end }}
+{{- if and (hasKey . "prizepicks") .prizepicks }}
+# Brewfile.prizepicks fingerprint: {{ include "dot_config/homebrew/Brewfile.prizepicks" | sha256sum }}
+{{- end }}
 
 echo "🔄 Brewfile change detected. Synchronizing system packages..."
 brew bundle --file=~/.config/homebrew/Brewfile
-brew bundle cleanup --force --file=~/.config/homebrew/Brewfile
+{{- if and (hasKey . "dev") .dev }}
+brew bundle --file=~/.config/homebrew/Brewfile.dev
+{{- end }}
+{{- if and (hasKey . "prizepicks") .prizepicks }}
+brew bundle --file=~/.config/homebrew/Brewfile.prizepicks
+{{- end }}
+# No `brew bundle cleanup --force`: /opt/homebrew is shared across users, so cleanup would
+# uninstall packages other users (or manual installs) depend on.
