@@ -10,8 +10,7 @@ brew "docker-credential-helper"  # Docker credential helpers (osxkeychain)
 brew "lazydocker"                # Terminal UI for managing Docker containers
 
 # Access
-brew "tsh"                       # Teleport client
-brew "teleport"                  # Teleport access plane
+brew "teleport"                  # Teleport access plane (provides tsh and tctl)
 cask "1password-cli"             # Command-line interface for 1Password (devenv pulls secrets with op)
 
 # Tooling
