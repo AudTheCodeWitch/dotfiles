@@ -1,0 +1,20 @@
+# ==============================================================================
+# PRIZEPICKS PROFILE (layered on top of Brewfile.dev; applied when profile is prizepicks)
+# ==============================================================================
+
+# Container Runtime (required by prizepicks-devenv)
+brew "colima"                    # Container runtime for macOS
+brew "docker"                    # Docker CLI
+brew "docker-compose"            # Docker Compose CLI plugin
+brew "docker-credential-helper"  # Docker credential helpers (osxkeychain)
+brew "lazydocker"                # Terminal UI for managing Docker containers
+
+# Access
+brew "tsh"                       # Teleport client
+brew "teleport"                  # Teleport access plane
+cask "1password-cli"             # Command-line interface for 1Password (devenv pulls secrets with op)
+
+# Tooling
+cask "bruno"                     # Open source IDE for exploring and testing APIs
+cask "ngrok"                     # Secure tunnels to localhost
+cask "rancher"                   # Kubernetes management GUI

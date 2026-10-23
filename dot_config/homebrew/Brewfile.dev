@@ -1,0 +1,22 @@
+# ==============================================================================
+# DEV PROFILE (layered on top of Brewfile; applied when profile is dev or prizepicks)
+# ==============================================================================
+
+# Kubernetes & Cloud
+brew "helm"           # Kubernetes package manager
+brew "kubectl"        # Kubernetes command-line tool
+brew "k9s"            # Terminal UI for managing Kubernetes clusters
+brew "awscli"         # Amazon Web Services command-line interface
+
+# Development Environments & Databases
+brew "postgresql@17"  # Relational database (essential for Rails)
+brew "redis"          # In-memory key-value store
+
+# Mobile Development
+brew "cocoapods"      # Dependency manager for Swift and Objective-C projects
+brew "watchman"       # File watching service
+cask "android-studio" # Android IDE
+cask "zulu@17"        # Azul OpenJDK 17
+
+# AI Tooling
+cask "claude-code@latest" # Claude Code CLI

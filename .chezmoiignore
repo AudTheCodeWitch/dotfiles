@@ -1,1 +1,7 @@
 README.md
+{{- if not (and (hasKey . "dev") .dev) }}
+.config/homebrew/Brewfile.dev
+{{- end }}
+{{- if not (and (hasKey . "prizepicks") .prizepicks) }}
+.config/homebrew/Brewfile.prizepicks
+{{- end }}
