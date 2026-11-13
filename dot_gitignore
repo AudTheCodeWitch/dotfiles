@@ -49,3 +49,5 @@ Temporary Items
 *.patch
 *.dump
 *.sql
+
+**/.claude/settings.local.json
