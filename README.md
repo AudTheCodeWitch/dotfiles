@@ -122,7 +122,11 @@ Open 1Password from `Applications`, sign into your account, and enable:
 * **Settings → Developer → Integrate with 1Password CLI**
 
 ### Step 3: Restore Local Files
-With 1Password signed in and the CLI integration on, pull the files that are not in the repo
+This step needs the `op` CLI and the Step 2 sign-in with **Integrate with 1Password CLI** on.
+The `dev` profile installs `op` (via `Brewfile.dev`). On `base`, install it first:
+`brew install --cask 1password-cli`.
+
+Then pull the files that are not in the repo
 (see [Local file backup](#local-file-backup-1password)):
 ```zsh
 mkdir -p ~/.config/zsh ~/.config/dotfiles
