@@ -60,6 +60,44 @@ Settings that belong to one machine live in files chezmoi does not manage:
 * `~/.ssh/config.local`: extra SSH hosts and keys, included from `~/.ssh/config`.
 * `~/.config/zsh/local.zsh`: extra aliases and functions, sourced at the end of `~/.zshrc`.
 
+### Local file backup (1Password)
+
+These files are not in the repo, so each one lives in 1Password as a Document item (Private
+vault). Back up, or refresh after an edit, with the [1Password CLI](https://developer.1password.com/docs/cli/):
+
+| File | 1Password item |
+| :--- | :--- |
+| `~/.ssh/config.local` | `dotfiles-local-ssh-config` |
+| `~/.config/zsh/local.zsh` | `dotfiles-local-zsh` |
+| `~/.config/dotfiles/denylist.txt` | `dotfiles-local-denylist` |
+| `[data]` block of `~/.config/chezmoi/chezmoi.toml` (`work_emails` etc.) | `dotfiles-local-chezmoi-data` |
+
+```zsh
+op document create ~/.ssh/config.local --title dotfiles-local-ssh-config
+# Refresh an existing item instead: op document edit dotfiles-local-ssh-config ~/.ssh/config.local
+```
+
+Restore on a new machine: see Step 3 of the bootstrap below.
+
+---
+
+## 🔒 Keeping Private Details Out
+
+This repo is public. Don't commit employer or client names, work emails, internal hostnames
+or paths, SSH key filenames, or tokens. That covers file content, commit messages, branch
+names and author metadata.
+
+* Put anything machine- or employer-specific in the local override files above, or in the
+  `[data]` block of `~/.config/chezmoi/chezmoi.toml`. Templates read it from there.
+* Optional: keep a local list of terms to block, one per line, in
+  `~/.config/dotfiles/denylist.txt` (never committed), then check before committing:
+  ```zsh
+  git diff --cached -U0 | grep -i -n -f ~/.config/dotfiles/denylist.txt
+  ```
+* `CLAUDE.md` holds the same rules for Claude Code sessions in this repo.
+* If something sensitive does get pushed, treat it as exposed: rotate any secret, then
+  rewrite history. Deleting the file in a later commit is not enough.
+
 ---
 
 ## 🚀 Fast Bootstrap (New Machine Setup)
@@ -83,7 +121,21 @@ Open 1Password from `Applications`, sign into your account, and enable:
 * **Settings → Developer → Use 1Password SSH Agent**
 * **Settings → Developer → Integrate with 1Password CLI**
 
-### Step 3: Sync & Reload Shell
+### Step 3: Restore Local Files
+With 1Password signed in and the CLI integration on, pull the files that are not in the repo
+(see [Local file backup](#local-file-backup-1password)):
+```zsh
+mkdir -p ~/.config/zsh ~/.config/dotfiles
+op document get dotfiles-local-ssh-config --out-file ~/.ssh/config.local
+op document get dotfiles-local-zsh --out-file ~/.config/zsh/local.zsh
+op document get dotfiles-local-denylist --out-file ~/.config/dotfiles/denylist.txt
+op document get dotfiles-local-chezmoi-data   # copy the values into the `chezmoi init` prompts
+```
+`chezmoi init` does not re-ask questions it already answered. If it ran with blank answers,
+run `chezmoi init --prompt` to answer them again.
+Files restored with `--out-file` get mode `0600`, which SSH requires.
+
+### Step 4: Sync & Reload Shell
 ```zsh
 eval "$(/opt/homebrew/bin/brew shellenv)" && chezmoi apply && exec zsh
 ```
