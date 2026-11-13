@@ -31,14 +31,34 @@ The repository is modularly structured to enforce clean separation of concerns:
 │   ├── helix/
 │   │   └── config.toml       # Line numbers, LSP, mouse support
 │   ├── homebrew/
-│   │   └── Brewfile          # Universal package manifest (apps, CLI, casks)
+│   │   ├── Brewfile          # Universal package manifest (apps, CLI, casks)
+│   │   └── Brewfile.dev      # Extra packages for the dev profile
 │   └── zsh/
 │       ├── aliases.zsh       # Shorthand Git, Rails, & system shortcuts
 │       └── tools.zsh         # Modern Rust tools & runtime hooks (mise, zoxide)
 ├── dot_gitconfig             # Git settings, 1Password signing, Delta config
 ├── dot_gitignore             # Global project ignore rules
-└── dot_zshrc                 # System environment, pathing, & plugin loader
+└── dot_zshrc.tmpl            # System environment, pathing, & plugin loader
 ```
+
+---
+
+## 🧩 Profiles & Local Overrides
+
+`chezmoi init` asks for a machine profile once and stores it in `~/.config/chezmoi/chezmoi.toml`.
+
+| Profile | Applies |
+| :--- | :--- |
+| `base` | `Brewfile` only. |
+| `dev` | `Brewfile` and `Brewfile.dev`, plus `JAVA_HOME` in `.zshrc`. |
+
+Init also asks for extra git signer emails (comma-separated, blank for none). They stay in the
+local chezmoi config and never enter this repo.
+
+Settings that belong to one machine live in files chezmoi does not manage:
+
+* `~/.ssh/config.local`: extra SSH hosts and keys, included from `~/.ssh/config`.
+* `~/.config/zsh/local.zsh`: extra aliases and functions, sourced at the end of `~/.zshrc`.
 
 ---
 
