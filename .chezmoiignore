@@ -1,4 +1,5 @@
 README.md
+CLAUDE.md
 {{- if not (and (hasKey . "dev") .dev) }}
 .config/homebrew/Brewfile.dev
 {{- end }}
