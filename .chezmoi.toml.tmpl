@@ -23,3 +23,5 @@ pager = "bat"
 {{- $profile := promptChoiceOnce . "profile" "Machine profile" (list "base" "dev") "base" }}
     profile = {{ $profile | quote }}
     dev = {{ ne $profile "base" }}
+{{- $extraEmails := promptStringOnce . "work_emails" "Extra git signer emails (comma-separated, blank for none)" "" }}
+    work_emails = {{ $extraEmails | quote }}
