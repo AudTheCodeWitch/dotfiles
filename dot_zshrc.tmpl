@@ -92,3 +92,11 @@ fi
 if command -v direnv &> /dev/null; then
     eval "$(direnv hook zsh)"
 fi
+
+{{- if and (hasKey . "dev") .dev }}
+# Zulu JDK 17 (dev profile)
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
+{{- end }}
+
+# Machine-specific shell config (not managed by chezmoi)
+[[ -f "$HOME/.config/zsh/local.zsh" ]] && source "$HOME/.config/zsh/local.zsh"
