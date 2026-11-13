@@ -1,0 +1,38 @@
+# ==============================================================================
+# DEV PROFILE (layered on top of Brewfile; applied when profile is dev)
+# ==============================================================================
+
+# Container Runtime
+brew "colima"                    # Container runtime for macOS
+brew "docker"                    # Docker CLI
+brew "docker-compose"            # Docker Compose CLI plugin
+brew "docker-credential-helper"  # Docker credential helpers (osxkeychain)
+brew "lazydocker"                # Terminal UI for managing Docker containers
+
+# Kubernetes & Cloud
+brew "helm"           # Kubernetes package manager
+brew "kubectl"        # Kubernetes command-line tool
+brew "k9s"            # Terminal UI for managing Kubernetes clusters
+brew "awscli"         # Amazon Web Services command-line interface
+cask "rancher"        # Kubernetes management GUI
+
+# Access
+brew "teleport"       # Teleport access plane (provides tsh and tctl)
+cask "1password-cli"  # Command-line interface for 1Password
+
+# Development Environments & Databases
+brew "postgresql@17"  # Relational database (essential for Rails)
+brew "redis"          # In-memory key-value store
+
+# API & Network Tools
+cask "bruno"          # Open source IDE for exploring and testing APIs
+cask "ngrok"          # Secure tunnels to localhost
+
+# Mobile Development
+brew "cocoapods"      # Dependency manager for Swift and Objective-C projects
+brew "watchman"       # File watching service
+cask "android-studio" # Android IDE
+cask "zulu@17"        # Azul OpenJDK 17
+
+# AI Tooling
+cask "claude-code@latest" # Claude Code CLI
